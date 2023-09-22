@@ -1,0 +1,4 @@
+{
+  "restructuredtext.preview.docutils.disabled": true,
+  "python.terminal.activateEnvironment": true
+}

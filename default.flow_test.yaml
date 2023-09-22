@@ -1,0 +1,9 @@
+tests:
+  - name: contoso-trek_default_20230919_105123_417000
+    display_name: contoso-trek
+    flow: d:\projects\contoso-trek
+    data: d:\projects\contoso-trek\data\testdata.jsonl
+    column_mapping:
+      chat_history: ${data.chat_history}
+      question: ${data.question}
+      customerId: ${data.customerId}
