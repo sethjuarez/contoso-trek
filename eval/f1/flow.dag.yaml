@@ -1,0 +1,39 @@
+inputs:
+  ground_truth:
+    type: string
+    default: Master transformer.
+  answer:
+    type: string
+    default: The main transformer is the object that feeds all the fixtures in low voltage tracks.
+outputs:
+  f1_score:
+    type: object
+    reference: ${concat_scores.output.f1_score}
+nodes:
+- name: f1_score
+  type: python
+  source:
+    type: code
+    path: f1_score.py
+  inputs:
+    ground_truth: ${inputs.ground_truth}
+    answer: ${inputs.answer}
+- name: concat_scores
+  type: python
+  source:
+    type: code
+    path: concat_scores.py
+  inputs:
+    f1_score: ${f1_score.output}
+- name: aggregate_variants_results
+  type: python
+  source:
+    type: code
+    path: aggregate_variants_results.py
+  inputs:
+    results: ${concat_scores.output}
+  aggregation: true
+id: QnA_f1_score_eval
+name: QnA F1 Score Evaluation
+environment:
+    python_requirements_txt: requirements.txt
