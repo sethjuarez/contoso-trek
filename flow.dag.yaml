@@ -28,7 +28,7 @@ nodes:
     type: package
     tool: promptflow.tools.embedding.embedding
   inputs:
-    connection: hubert_aoai
+    connection: isis-aoai
     input: ${inputs.question}
     deployment_name: text-embedding-ada-002
 - name: retrieve_documentation
@@ -37,9 +37,9 @@ nodes:
     type: code
     path: retrieve_documentation.py
   inputs:
-    search: hubert_data
+    search: contoso-search
     question: ${inputs.question}
-    index_name: contoso-trek
+    index_name: contoso-products
     embedding: ${question_embedding.output}
 - name: llm_response
   type: llm
@@ -50,17 +50,15 @@ nodes:
     deployment_name: gpt-35-turbo
     prompt_text: ${customer_prompt.output}
     question: ${inputs.question}
-  provider: AzureOpenAI
-  connection: hubert_aoai
+  connection: isis-aoai
   api: chat
-  module: promptflow.tools.aoai
 - name: customer_lookup
   type: python
   source:
     type: code
     path: customer_lookup.py
   inputs:
-    conn: hubert_cosmos
+    conn: contoso-cosmos
     customerId: ${inputs.customerId}
 - name: customer_prompt
   type: prompt
