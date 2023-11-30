@@ -28,7 +28,7 @@ nodes:
     type: package
     tool: promptflow.tools.embedding.embedding
   inputs:
-    connection: isis-aoai
+    connection: isis-connection
     input: ${inputs.question}
     deployment_name: text-embedding-ada-002
 - name: retrieve_documentation
@@ -50,7 +50,7 @@ nodes:
     deployment_name: gpt-35-turbo
     prompt_text: ${customer_prompt.output}
     question: ${inputs.question}
-  connection: isis-aoai
+  connection: isis-connection
   api: chat
 - name: customer_lookup
   type: python
@@ -58,7 +58,7 @@ nodes:
     type: code
     path: customer_lookup.py
   inputs:
-    conn: contoso-cosmos
+    conn: contoso-cosmosdb
     customerId: ${inputs.customerId}
 - name: customer_prompt
   type: prompt
